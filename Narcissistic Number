@@ -1,0 +1,41 @@
+Private Sub Command1_Click()
+Dim a(1 To 8) As Integer
+Dim p As Long
+Dim i As Long
+Dim j As Long
+Dim s As Long
+Dim c As Long
+Dim d As Long
+Dim k As Integer
+c = Val(Text1.Text)
+d = Val(Text2.Text)
+List1.Clear
+If d >= 10000000 Then
+If MsgBox("该范围过大，计算可能需要很长时间", vbYesNo, "计算的请求") = vbNo Then Exit Sub
+End If
+If c < 100 Or c > d Then
+MsgBox "输入有误,请重新输入", , "错误"
+Text1.Text = ""
+Text2.Text = ""
+Exit Sub
+End If
+For i = c To d Step 1
+    p = i
+    j = 1
+    s = 0
+    Do While j <= Len(CStr(i))
+       a(j) = p Mod 10
+       p = p \ 10
+       j = j + 1
+    Loop
+    For k = 1 To Len(CStr(i))
+       s = s + a(k) ^ Len(CStr(i))
+    Next k
+    If i = s Then List1.AddItem Str(i)
+Next i
+End Sub
+
+Private Sub Form_Load()
+Text1.Text = ""
+Text2.Text = ""
+End Sub
